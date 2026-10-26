@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Learning Progress</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f5fa;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #d5dbe5;
+        }
+
+        h1 {
+            text-align: center;
+            color: #243b64;
+        }
+
+        .summary {
+            background: #e8f0ff;
+            padding: 18px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .track {
+            height: 18px;
+            background: #dce3ed;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .fill {
+            height: 100%;
+            background: #287a4b;
+            width: {{ percentage }}%;
+        }
+
+        .skill {
+            border: 1px solid #dce3ed;
+            padding: 15px;
+            margin: 12px 0;
+            border-radius: 8px;
+        }
+
+        form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        select, button {
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #cbd3df;
+        }
+
+        button {
+            background: #2859a6;
+            color: white;
+            cursor: pointer;
+        }
+
+        .links {
+            display: flex;
+            gap: 18px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        a {
+            color: #2859a6;
+            text-decoration: none;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 20px;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h1>My Learning Progress</h1>
+
+    <div class="summary">
+        <h3>Overall Progress: {{ percentage }}%</h3>
+        <div class="track">
+            <div class="fill"></div>
+        </div>
+        <p>Completed skills: {{ progress_list | selectattr('status', 'equalto', 'Completed') | list | length }} / {{ progress_list | length }}</p>
+    </div>
+
+    {% if progress_list %}
+        {% for item in progress_list %}
+            <div class="skill">
+                <h3>{{ item.skill_name }}</h3>
+                <p>Current Status: <strong>{{ item.status or 'Not Started' }}</strong></p>
+
+                <form method="POST" action="/progress">
+                    <input type="hidden"
+                           name="skill_name"
+                           value="{{ item.skill_name }}">
+
+                    <select name="status" required>
+                        <option value="Not Started"
+                            {% if item.status == 'Not Started' %}selected{% endif %}>
+                            Not Started
+                        </option>
+
+                        <option value="In Progress"
+                            {% if item.status == 'In Progress' %}selected{% endif %}>
+                            In Progress
+                        </option>
+
+                        <option value="Completed"
+                            {% if item.status == 'Completed' %}selected{% endif %}>
+                            Completed
+                        </option>
+                    </select>
+
+                    <button type="submit">Update Progress</button>
+                </form>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty">
+            <h3>No skills added to progress yet.</h3>
+            <p>तुझा learning progress इथे दिसण्यासाठी आधी skill add कर.</p>
+        </div>
+    {% endif %}
+
+    <div class="links">
+        <a href="/profile">My Profile</a>
+        <a href="/skill-gap-direct">Skill Gap Analysis</a>
+        <a href="/dashboard">Dashboard</a>
+    </div>
+</div>
+</body>
+</html>

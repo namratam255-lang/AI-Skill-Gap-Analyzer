@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career Guidance</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+            padding: 30px;
+            color: #243047;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            color: #2457a7;
+        }
+
+        .role {
+            background: #e8f0ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .content {
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+
+        .buttons {
+            margin-top: 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 18px;
+            margin: 5px;
+            background: #2457a7;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .btn:hover {
+            background: #183d79;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>AI Career Guidance</h1>
+
+        <div class="role">
+            <strong>Selected Job Role:</strong>
+            {{ job_role.role_name }}
+        </div>
+
+        <h2>Your Personalized Career Advice</h2>
+
+        <div class="content">{{ guidance }}</div>
+
+        <div class="buttons">
+            <a href="{{ url_for('ai_roadmap') }}" class="btn">
+                View Learning Roadmap
+            </a>
+
+            <a href="{{ url_for('dashboard') }}" class="btn">
+                Back to Dashboard
+            </a>
+        </div>
+
+    </div>
+</body>
+</html>

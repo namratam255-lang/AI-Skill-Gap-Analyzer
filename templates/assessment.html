@@ -1,0 +1,596 @@
+<!DOCTYPE html> <html lang="en"> <head>
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Skill Assessment - AI Skill Gap Analyzer</title>
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+
+        background: linear-gradient(
+            135deg,
+            #eef5ff,
+            #f8fbff
+        );
+
+        margin: 0;
+
+        color: #333;
+    }
+
+    /* =========================
+       Navbar
+    ========================= */
+
+    .navbar {
+
+        background: linear-gradient(
+            90deg,
+            #0057b8,
+            #0066ff
+        );
+
+        color: white;
+
+        padding: 20px 40px;
+
+        box-shadow:
+            0 3px 10px
+            rgba(0, 0, 0, 0.15);
+    }
+
+    .navbar h2 {
+        margin: 0;
+        font-size: 24px;
+    }
+
+    /* =========================
+       Container
+    ========================= */
+
+    .container {
+
+        width: 85%;
+
+        max-width: 900px;
+
+        margin: 40px auto;
+    }
+
+    .page-title {
+
+        color: #0057b8;
+
+        margin-bottom: 10px;
+
+        font-size: 32px;
+    }
+
+    .page-description {
+
+        color: #666;
+
+        font-size: 16px;
+
+        line-height: 1.6;
+
+        margin-bottom: 30px;
+    }
+
+    /* =========================
+       Card
+    ========================= */
+
+    .card {
+
+        background-color: white;
+
+        padding: 30px;
+
+        margin-bottom: 25px;
+
+        border-radius: 14px;
+
+        box-shadow:
+            0 5px 18px
+            rgba(0, 0, 0, 0.10);
+    }
+
+    .card h2 {
+
+        color: #0057b8;
+
+        margin-top: 0;
+
+        margin-bottom: 18px;
+    }
+
+    /* =========================
+       Job Role
+    ========================= */
+
+    .role {
+
+        background-color: #eaf3ff;
+
+        padding: 18px;
+
+        border-radius: 8px;
+
+        font-size: 20px;
+
+        font-weight: bold;
+
+        color: #0057b8;
+    }
+
+    /* =========================
+       Skills
+    ========================= */
+
+    .skill {
+
+        display: inline-block;
+
+        background-color: #f0f2f5;
+
+        color: #444;
+
+        padding: 9px 14px;
+
+        margin: 5px;
+
+        border-radius: 20px;
+
+        font-weight: 500;
+    }
+
+    .required {
+
+        background-color: #fff3cd;
+
+        color: #856404;
+    }
+
+    .current {
+
+        background-color: #d4edda;
+
+        color: #155724;
+    }
+
+    .message {
+
+        color: #666;
+
+        padding: 10px 0;
+
+        line-height: 1.6;
+    }
+
+    /* =========================
+       Buttons
+    ========================= */
+
+    .button {
+
+        display: inline-block;
+
+        color: white;
+
+        padding: 12px 20px;
+
+        text-decoration: none;
+
+        border-radius: 7px;
+
+        margin-top: 10px;
+
+        border: none;
+
+        font-size: 16px;
+
+        cursor: pointer;
+
+        transition:
+            transform 0.2s,
+            box-shadow 0.2s;
+    }
+
+    .button:hover {
+
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 4px 12px
+            rgba(0, 0, 0, 0.15);
+    }
+
+    /* =========================
+       Analyze
+    ========================= */
+
+    .analyze {
+
+        background-color: #6f42c1;
+    }
+
+    .analyze:hover {
+
+        background-color: #59339d;
+    }
+
+    /* =========================
+       Recommendations
+    ========================= */
+
+    .recommendation {
+
+        background-color: #28a745;
+    }
+
+    .recommendation:hover {
+
+        background-color: #218838;
+    }
+
+    /* =========================
+       Profile
+    ========================= */
+
+    .profile {
+
+        background-color: #17a2b8;
+    }
+
+    .profile:hover {
+
+        background-color: #117a8b;
+    }
+
+    /* =========================
+       Back
+    ========================= */
+
+    .back {
+
+        background-color: #6c757d;
+    }
+
+    .back:hover {
+
+        background-color: #545b62;
+    }
+
+    /* =========================
+       Action Area
+    ========================= */
+
+    .action-buttons {
+
+        display: flex;
+
+        flex-wrap: wrap;
+
+        gap: 10px;
+
+        margin-top: 15px;
+    }
+
+    /* =========================
+       Info
+    ========================= */
+
+    .info {
+
+        background-color: #eef5ff;
+
+        border-left: 4px solid #0066ff;
+
+        padding: 15px;
+
+        border-radius: 6px;
+
+        color: #555;
+
+        line-height: 1.6;
+
+        margin-top: 20px;
+    }
+
+    /* =========================
+       Mobile
+    ========================= */
+
+    @media (max-width: 768px) {
+
+        .container {
+
+            width: 92%;
+
+            margin: 25px auto;
+        }
+
+        .navbar {
+
+            padding: 18px 20px;
+        }
+
+        .card {
+
+            padding: 22px;
+        }
+
+        .page-title {
+
+            font-size: 26px;
+        }
+
+        .action-buttons {
+
+            flex-direction: column;
+        }
+
+        .button {
+
+            width: 100%;
+
+            text-align: center;
+        }
+
+    }
+
+</style>
+
+</head> <body> <!-- ========================= Navbar ========================= --> <div class="navbar">
+<h2>
+    AI Skill Gap Analyzer
+</h2>
+
+</div> <!-- ========================= Main Container ========================= --> <div class="container">
+<h1 class="page-title">
+    Skill Assessment
+</h1>
+
+
+<p class="page-description">
+
+    Compare your current skills with the skills required
+    for your selected job role.
+
+</p>
+
+
+<!-- =========================
+     Selected Job Role
+========================= -->
+
+<div class="card">
+
+    <h2>
+        🎯 Selected Job Role
+    </h2>
+
+    <div class="role">
+
+        {{ job_role.role_name }}
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     Required Skills
+========================= -->
+
+<div class="card">
+
+    <h2>
+        📋 Required Skills
+    </h2>
+
+
+    {% if job_role.required_skills %}
+
+
+        {% for skill in job_role.required_skills.split(',') %}
+
+            <span class="skill required">
+
+                {{ skill.strip() }}
+
+            </span>
+
+        {% endfor %}
+
+
+    {% else %}
+
+        <p class="message">
+
+            No required skills found for this job role.
+
+        </p>
+
+    {% endif %}
+
+</div>
+
+
+<!-- =========================
+     Current Skills
+========================= -->
+
+<div class="card">
+
+    <h2>
+        💡 Your Current Skills
+    </h2>
+
+
+    {% if skills %}
+
+
+        {% for skill in skills %}
+
+            <span class="skill current">
+
+                ✓ {{ skill.skill_name }}
+
+            </span>
+
+        {% endfor %}
+
+
+    {% else %}
+
+        <p class="message">
+
+            You have not added any skills yet.
+
+        </p>
+
+
+        <a
+            href="/profile"
+            class="button profile"
+        >
+
+            + Add Skills
+
+        </a>
+
+    {% endif %}
+
+</div>
+
+
+<!-- =========================
+     Analysis Actions
+========================= -->
+
+<div class="card">
+
+    <h2>
+        🤖 Career Analysis
+    </h2>
+
+    <p class="message">
+
+        Your selected role and current skills are ready.
+        Choose what you want to explore next.
+
+    </p>
+
+
+    <div class="action-buttons">
+
+
+        <!-- Skill Gap -->
+
+        <form
+            method="POST"
+            action="/skill-gap"
+        >
+
+            <input
+                type="hidden"
+                name="job_role_id"
+                value="{{ job_role.id }}"
+            >
+
+            <button
+                type="submit"
+                class="button analyze"
+            >
+
+                🤖 Analyze My Skill Gap
+
+            </button>
+
+        </form>
+
+
+        <!-- Recommendations -->
+
+        <form
+            method="POST"
+            action="/recommendations"
+        >
+
+            <input
+                type="hidden"
+                name="job_role_id"
+                value="{{ job_role.id }}"
+            >
+
+            <button
+                type="submit"
+                class="button recommendation"
+            >
+
+                📚 View Learning Recommendations
+
+            </button>
+
+        </form>
+
+
+    </div>
+
+
+    <div class="info">
+
+        <strong>Next:</strong>
+
+        Skill Gap Analysis will show your matched skills,
+        missing skills and overall skill percentage.
+        Learning Recommendations will suggest what to
+        learn for the missing skills.
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     Navigation
+========================= -->
+
+<div class="card">
+
+
+    <a
+        href="/job-role"
+        class="button back"
+    >
+
+        ← Change Job Role
+
+    </a>
+
+
+    <a
+        href="/dashboard"
+        class="button back"
+    >
+
+        🏠 Back to Dashboard
+
+    </a>
+
+
+</div>
+
+</div> </body> </html>

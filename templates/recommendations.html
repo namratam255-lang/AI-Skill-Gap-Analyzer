@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Learning Recommendations - AI Skill Gap Analyzer</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fb;
+            margin: 0;
+            color: #333;
+        }
+
+        .navbar {
+            background-color: #0057b8;
+            color: white;
+            padding: 20px 40px;
+        }
+
+        .navbar h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .container {
+            width: 85%;
+            max-width: 1100px;
+            margin: 40px auto;
+        }
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #0057b8;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .role-card {
+            background-color: #eaf3ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .role-card h2 {
+            color: #0057b8;
+            margin-top: 0;
+        }
+
+        .recommendation-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.10);
+            border-left: 5px solid #0066ff;
+        }
+
+        .card h2 {
+            color: #0057b8;
+            margin-top: 0;
+        }
+
+        .card p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .skill {
+            display: inline-block;
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .resource {
+            background-color: #e8f5e9;
+            padding: 12px;
+            border-radius: 8px;
+            color: #2e7d32;
+            margin-top: 15px;
+        }
+
+        .resource strong {
+            color: #1b5e20;
+        }
+
+        .button-section {
+            margin-top: 35px;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #0066ff;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-right: 10px;
+        }
+
+        .button:hover {
+            background-color: #004dcc;
+        }
+
+        .back {
+            background-color: #6c757d;
+        }
+
+        .back:hover {
+            background-color: #545b62;
+        }
+
+        @media (max-width: 768px) {
+
+            .container {
+                width: 92%;
+                margin: 25px auto;
+            }
+
+            .navbar {
+                padding: 18px 20px;
+            }
+
+            .recommendation-container {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="navbar">
+
+    <h2>
+        AI Skill Gap Analyzer
+    </h2>
+
+</div>
+
+
+<div class="container">
+
+
+    <div class="header">
+
+        <h1>
+            Learning Recommendations
+        </h1>
+
+        <p>
+            Improve your missing skills with these personalized
+            learning recommendations.
+        </p>
+
+    </div>
+
+
+    <div class="role-card">
+
+        <h2>
+            Selected Job Role
+        </h2>
+
+        <p>
+            <strong>
+                {{ job_role.role_name }}
+            </strong>
+        </p>
+
+    </div>
+
+
+    <div class="recommendation-container">
+
+
+        {% for recommendation in recommendations %}
+
+
+        <div class="card">
+
+            <h2>
+                📚 Learn This Skill
+            </h2>
+
+            <div class="skill">
+
+                {{ recommendation.skill }}
+
+            </div>
+
+            <p>
+                {{ recommendation.description }}
+            </p>
+
+            <div class="resource">
+
+                <strong>
+                    Recommended Resources:
+                </strong>
+
+                <br>
+
+                {{ recommendation.resource }}
+
+            </div>
+
+        </div>
+
+
+        {% endfor %}
+
+
+    </div>
+
+
+    <div class="button-section">
+
+        <a
+            href="/dashboard"
+            class="button"
+        >
+            Back to Dashboard
+        </a>
+
+        <a
+            href="/job-role"
+            class="button back"
+        >
+            Choose Another Role
+        </a>
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

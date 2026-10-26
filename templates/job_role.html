@@ -1,0 +1,393 @@
+<!DOCTYPE html> <html lang="en"> <head>
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Select Job Role - AI Skill Gap Analyzer</title>
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(
+            135deg,
+            #eef5ff,
+            #f8fbff
+        );
+
+        margin: 0;
+        color: #333;
+    }
+
+    /* =========================
+       Navbar
+    ========================= */
+
+    .navbar {
+
+        background: linear-gradient(
+            90deg,
+            #0057b8,
+            #0066ff
+        );
+
+        color: white;
+
+        padding: 20px 40px;
+
+        box-shadow:
+            0 3px 10px
+            rgba(0, 0, 0, 0.15);
+    }
+
+    .navbar h2 {
+        margin: 0;
+        font-size: 24px;
+    }
+
+    /* =========================
+       Container
+    ========================= */
+
+    .container {
+
+        width: 85%;
+
+        max-width: 800px;
+
+        margin: 50px auto;
+    }
+
+    /* =========================
+       Card
+    ========================= */
+
+    .card {
+
+        background-color: white;
+
+        padding: 35px;
+
+        border-radius: 14px;
+
+        box-shadow:
+            0 5px 18px
+            rgba(0, 0, 0, 0.10);
+    }
+
+    h1 {
+
+        color: #0057b8;
+
+        margin-top: 0;
+
+        margin-bottom: 10px;
+
+        font-size: 30px;
+    }
+
+    .subtitle {
+
+        color: #666;
+
+        font-size: 16px;
+
+        line-height: 1.6;
+
+        margin-bottom: 25px;
+    }
+
+    /* =========================
+       Label
+    ========================= */
+
+    label {
+
+        display: block;
+
+        margin-bottom: 10px;
+
+        font-weight: bold;
+
+        color: #333;
+    }
+
+    /* =========================
+       Select
+    ========================= */
+
+    select {
+
+        width: 100%;
+
+        padding: 14px;
+
+        border: 1px solid #ccc;
+
+        border-radius: 7px;
+
+        font-size: 16px;
+
+        background-color: white;
+
+        cursor: pointer;
+    }
+
+    select:focus {
+
+        outline: none;
+
+        border-color: #0066ff;
+
+        box-shadow:
+            0 0 0 3px
+            rgba(0, 102, 255, 0.12);
+    }
+
+    /* =========================
+       Continue Button
+    ========================= */
+
+    .button {
+
+        width: 100%;
+
+        padding: 14px;
+
+        margin-top: 22px;
+
+        background: linear-gradient(
+            90deg,
+            #0057b8,
+            #0066ff
+        );
+
+        color: white;
+
+        border: none;
+
+        border-radius: 7px;
+
+        font-size: 16px;
+
+        font-weight: bold;
+
+        cursor: pointer;
+
+        transition:
+            transform 0.2s,
+            box-shadow 0.2s;
+    }
+
+    .button:hover {
+
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 5px 15px
+            rgba(0, 102, 255, 0.25);
+    }
+
+    /* =========================
+       Back Button
+    ========================= */
+
+    .back {
+
+        display: block;
+
+        text-align: center;
+
+        margin-top: 22px;
+
+        color: #0057b8;
+
+        text-decoration: none;
+
+        font-weight: bold;
+    }
+
+    .back:hover {
+
+        text-decoration: underline;
+    }
+
+    /* =========================
+       Info Box
+    ========================= */
+
+    .info {
+
+        margin-top: 25px;
+
+        padding: 15px;
+
+        background-color: #eef5ff;
+
+        border-left: 4px solid #0066ff;
+
+        border-radius: 6px;
+
+        color: #555;
+
+        line-height: 1.5;
+
+        font-size: 14px;
+    }
+
+    /* =========================
+       Mobile
+    ========================= */
+
+    @media (max-width: 768px) {
+
+        .container {
+
+            width: 92%;
+
+            margin: 30px auto;
+        }
+
+        .navbar {
+
+            padding: 18px 20px;
+        }
+
+        .card {
+
+            padding: 25px 20px;
+        }
+
+        h1 {
+
+            font-size: 25px;
+        }
+
+    }
+
+</style>
+
+</head> <body> <!-- ========================= Navbar ========================= --> <div class="navbar">
+<h2>
+    AI Skill Gap Analyzer
+</h2>
+
+</div> <!-- ========================= Main Container ========================= --> <div class="container">
+<div class="card">
+
+
+    <h1>
+        Select Your Desired Job Role
+    </h1>
+
+
+    <p class="subtitle">
+
+        Choose the job role you want to prepare for.
+        We will compare your current skills with the
+        skills required for that role.
+
+    </p>
+
+
+    <!-- =========================
+         Job Role Form
+    ========================= -->
+
+    <form
+        method="POST"
+        action="/assessment"
+    >
+
+
+        <label for="job_role_id">
+
+            Desired Job Role
+
+        </label>
+
+
+        <select
+            name="job_role_id"
+            id="job_role_id"
+            required
+        >
+
+
+            <option value="">
+
+                -- Select Job Role --
+
+            </option>
+
+
+            {% for role in job_roles %}
+
+
+            <option value="{{ role.id }}">
+
+                {{ role.role_name }}
+
+            </option>
+
+
+            {% endfor %}
+
+
+        </select>
+
+
+        <button
+            type="submit"
+            class="button"
+        >
+
+            Continue to Skill Assessment →
+
+        </button>
+
+
+    </form>
+
+
+    <!-- =========================
+         Information
+    ========================= -->
+
+    <div class="info">
+
+        <strong>What happens next?</strong>
+
+        <br>
+
+        Your selected job role will be saved.
+        Then you can view your Skill Assessment,
+        AI Skill Gap Analysis and Learning Recommendations.
+
+    </div>
+
+
+    <!-- =========================
+         Back
+    ========================= -->
+
+    <a
+        href="/dashboard"
+        class="back"
+    >
+
+        ← Back to Dashboard
+
+    </a>
+
+
+</div>
+
+</div> </body> </html>

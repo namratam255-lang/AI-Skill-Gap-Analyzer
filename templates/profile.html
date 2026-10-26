@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>My Profile - AI Skill Gap Analyzer</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fb;
+            margin: 0;
+        }
+
+        .navbar {
+            background-color: #0057b8;
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            width: 80%;
+            margin: 40px auto;
+        }
+
+        .card {
+            background-color: white;
+            padding: 25px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #0066ff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #0057b8;
+            color: white;
+            padding: 10px 18px;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .skill {
+            background-color: #eef5ff;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 6px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <h2>AI Skill Gap Analyzer</h2>
+
+</div>
+
+
+<div class="container">
+
+    <a href="/dashboard" class="button">
+        ← Dashboard
+    </a>
+
+
+    <div class="card">
+
+        <h1>My Profile</h1>
+
+        <p>
+            <strong>Name:</strong> {{ user.name }}
+        </p>
+
+        <p>
+            <strong>Email:</strong> {{ user.email }}
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Add Your Skill</h2>
+
+        <form method="POST">
+
+            <label>Skill Name</label>
+
+            <input
+                type="text"
+                name="skill_name"
+                placeholder="Example: Python"
+                required
+            >
+
+
+            <label>Skill Type</label>
+
+            <select name="skill_type" required>
+
+                <option value="">
+                    Select Skill Type
+                </option>
+
+                <option value="Technical">
+                    Technical Skill
+                </option>
+
+                <option value="Soft">
+                    Soft Skill
+                </option>
+
+            </select>
+
+
+            <button type="submit">
+                Add Skill
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>My Skills</h2>
+
+        {% if skills %}
+
+            {% for skill in skills %}
+
+                <div class="skill">
+
+                    <strong>
+                        {{ skill.skill_name }}
+                    </strong>
+
+                    <br>
+
+                    <small>
+                        {{ skill.skill_type }}
+                    </small>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>
+                No skills added yet.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+
+</div>
+
+</body>
+
+</html>
